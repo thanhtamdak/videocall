@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MediaSoup Video Call</title>
+</head>
+<body>
+    <h1>MediaSoup Video Call</h1>
+    <video id="local-video" autoplay muted></video>
+    <video id="remote-video" autoplay></video>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io('http://localhost:3000');
+        const localVideo = document.getElementById('local-video');
+
+        async function start() {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            localVideo.srcObject = stream;
+
+            socket.emit('createTransport', async (transportInfo) => {
+                console.log('Transport created:', transportInfo);
+                // Tiếp tục logic gửi/nhận stream ở đây
+            });
+        }
+
+        start();
+    </script>
+</body>
+</html>
