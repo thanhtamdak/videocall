@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User - Video Call</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        #join-call-btn {
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #join-call-btn:hover {
+            background-color: #007B8C;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Video Call User</h1>
+    <p>Nhập tên phòng và tham gia cuộc gọi video.</p>
+    
+    <!-- Input và nút tham gia cuộc gọi -->
+    <label for="room-name">Nhập tên phòng:</label>
+    <input type="text" id="room-name" placeholder="Nhập tên phòng cuộc gọi">
+    <button id="join-call-btn" onclick="joinCall()">Tham gia cuộc gọi</button>
+    
+    <div id="jitsi-meet-container" style="display:none;">
+        <iframe id="jitsi-iframe" style="width:100%; height:500px;" frameborder="0"></iframe>
+    </div>
+</div>
+
+<script>
+    // Hàm tham gia cuộc gọi
+    function joinCall() {
+        const roomName = document.getElementById('room-name').value.trim();
+        if (roomName === '') {
+            alert('Vui lòng nhập tên phòng');
+            return;
+        }
+        
+        const iframe = document.getElementById('jitsi-iframe');
+        iframe.src = 'https://meet.jit.si/' + roomName; // Kết nối tới phòng Jitsi Meet
+        document.getElementById('jitsi-meet-container').style.display = 'block'; // Hiển thị iframe cuộc gọi
+        document.getElementById('join-call-btn').style.display = 'none'; // Ẩn nút tham gia
+        document.getElementById('room-name').style.display = 'none'; // Ẩn input tên phòng
+    }
+</script>
+
+</body>
+</html>
